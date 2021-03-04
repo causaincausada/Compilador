@@ -5,6 +5,8 @@
  */
 package Test;
 
+import Lector.Lector;
+
 /**
  *
  * @author carlo
@@ -14,6 +16,18 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        Lector l = new Lector();
+        l.open();
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println(l.read());
+        System.out.println("#" + (int) l.read());
     }
 }
