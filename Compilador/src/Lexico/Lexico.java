@@ -32,14 +32,14 @@ public class Lexico {
             }
             l.regresarPuntero();
             return s;
-        } else if((c >= '1') && (c <= '9')){
+        } else if((c >= '0') && (c <= '9')){
             s += "" + c;
             c = l.read();
-            while(((c >= '1') && (c <= '9')) || c == '.'){
+            while(((c >= '0') && (c <= '9')) || c == '.'){
                 if(c == '.'){
                     s += "" + c;
                     c = l.read();
-                    while(((c >= '1') && (c <= '9'))){
+                    while(((c >= '0') && (c <= '9'))){
                         s += "" + c;
                         c = l.read();
                     }              
