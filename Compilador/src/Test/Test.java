@@ -6,6 +6,7 @@
 package Test;
 
 import Lector.Lector;
+import Lexico.Lexico;
 
 /**
  *
@@ -18,7 +19,10 @@ public class Test {
     public static void main(String[] args) {
         Lector l = new Lector();
         l.open();
-        System.out.println(l.read());
+        Lexico lex = new Lexico(l);
+        System.out.println(lex.token());
+        
+        /*System.out.println(l.read());
         System.out.println(l.read());
         System.out.println(l.read());
         System.out.println(l.read());
@@ -30,6 +34,8 @@ public class Test {
         System.out.println(l.read());
         l.regresarPuntero();
         System.out.println(l.read());
-        System.out.println("#" + (int) l.read());
+        System.out.println("#" + (int) l.read());*/
+        
+        
     }
 }

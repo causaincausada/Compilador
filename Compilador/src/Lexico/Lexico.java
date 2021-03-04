@@ -6,27 +6,33 @@
 package Lexico;
 
 import Lector.Lector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author carlo
  */
 public class Lexico {
-
-    public Lexico() {
+    private Lector l = new Lector();
+    
+    public Lexico(Lector l) {
+        this.l = l;
     }
 
-    public String token(Lector l) {
+    public String token() {
         String s = "";
         char c;
         c = l.read();
         
         if(((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || c == '_'){
             s += "" + c;
+            c = l.read();
+            while(((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || ((c >= '1') && (c <= '9')) || c == '_'){
+                s += "" + c;
+                c = l.read();
+            }
             
-            //while()
+            l.regresarPuntero();
+            return s;
         }
       
         

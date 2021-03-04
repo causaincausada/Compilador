@@ -6,7 +6,6 @@
 package Lector;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.logging.Level;
@@ -20,9 +19,9 @@ import javax.swing.JOptionPane;
  */
 public class Lector {
 
-    JFileChooser file;
-    File documento;
-    RandomAccessFile archivos;
+    private JFileChooser file;
+    private File documento;
+    private RandomAccessFile archivos;
 
     public Lector() {
         this.file = null;
@@ -52,7 +51,6 @@ public class Lector {
         char c = 0;
         try {
             c = (char) archivos.read();
-            //archivos.mark(1);
         } catch (IOException ex) {
             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
         }
