@@ -8,6 +8,7 @@ package Lector;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -21,7 +22,7 @@ public class Lector {
 
     JFileChooser file;
     File documento;
-    FileReader archivos;
+    RandomAccessFile archivos;
 
     public Lector() {
         this.file = null;
@@ -38,7 +39,7 @@ public class Lector {
         
         try {
             if (documento != null) {
-                archivos = new FileReader(documento);
+                archivos = new RandomAccessFile(documento.getPath(), "r");
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex + ""
@@ -58,6 +59,11 @@ public class Lector {
         return c;
     }
     
-    
-
+    public void regresarPuntero(){
+        try {
+            archivos.seek(archivos.getFilePointer() - 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

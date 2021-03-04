@@ -28,6 +28,8 @@ public class Test {
         System.out.println(l.read());
         System.out.println(l.read());
         System.out.println(l.read());
+        l.regresarPuntero();
+        System.out.println(l.read());
         System.out.println("#" + (int) l.read());
     }
 }
