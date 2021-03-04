@@ -35,7 +35,7 @@ public class Lector {
         file.showOpenDialog(file);
         //abrimos el archivo seleccionado
         documento = file.getSelectedFile();
-        
+
         try {
             if (documento != null) {
                 archivos = new RandomAccessFile(documento.getPath(), "r");
@@ -56,8 +56,8 @@ public class Lector {
         }
         return c;
     }
-    
-    public void regresarPuntero(){
+
+    public void regresarPuntero() {
         try {
             archivos.seek(archivos.getFilePointer() - 1);
         } catch (IOException ex) {

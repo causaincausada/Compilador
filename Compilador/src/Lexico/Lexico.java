@@ -30,13 +30,32 @@ public class Lexico {
                 s += "" + c;
                 c = l.read();
             }
-            
             l.regresarPuntero();
             return s;
+        } else if((c >= '1') && (c <= '9')){
+            s += "" + c;
+            c = l.read();
+            while(((c >= '1') && (c <= '9')) || c == '.'){
+                if(c == '.'){
+                    s += "" + c;
+                    c = l.read();
+                    while(((c >= '1') && (c <= '9'))){
+                        s += "" + c;
+                        c = l.read();
+                    }              
+                    l.regresarPuntero();
+                    return s;
+                }else{
+                    s += "" + c;
+                    c = l.read();
+                }
+            }
+            l.regresarPuntero();
+            return s;
+        } else {
+            s += "" + c;
         }
-      
         
-            
         return s;
     }
 }
