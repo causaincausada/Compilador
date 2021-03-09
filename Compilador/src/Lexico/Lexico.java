@@ -61,7 +61,9 @@ public class Lexico {
             l.regresarPuntero();
             return s;
         } else {
-            s += "" + c;
+            s += c;
+            //System.out.println((int) c);
+            //System.out.println("&" + s + "#");
         }
 
         return s;

@@ -20,76 +20,11 @@ public class Test {
         Lector l = new Lector();
         l.open();
         Lexico lex = new Lexico(l);
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
-        System.out.println(lex.token());
         
-        /*char c = l.read();
-        System.out.println(c + " $ " + (int) c );
-        c = l.read();
-        System.out.println(c + " $ " + (int) c );
-        c = l.read();
-        System.out.println(c + " $ " + (int) c );
-        c = l.read();
-        System.out.println(c + " $ " + (int) c );
-        c = l.read();
-        System.out.println(c + " $ " + (int) c );*/
+        for(int i=0; i<80; i++){
+            System.out.println(lex.token());
+        }
+        
+        l.cerrar();
     }
 }

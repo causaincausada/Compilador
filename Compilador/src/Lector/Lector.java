@@ -54,12 +54,31 @@ public class Lector {
         } catch (IOException ex) {
             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Para cambiar los saltos de linea en espacios
+        if(c == (char)13){
+            read();
+            return ' ';
+        }
+        
+        if(c == (char)10){
+            return ' ';
+        }
+        
         return c;
     }
 
     public void regresarPuntero() {
         try {
             archivos.seek(archivos.getFilePointer() - 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cerrar(){
+        try {
+            archivos.close();
         } catch (IOException ex) {
             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
         }
