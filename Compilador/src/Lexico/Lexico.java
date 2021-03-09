@@ -62,8 +62,6 @@ public class Lexico {
             return s;
         } else {
             s += c;
-            //System.out.println((int) c);
-            //System.out.println("&" + s + "#");
         }
 
         return s;
