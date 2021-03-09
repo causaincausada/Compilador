@@ -12,8 +12,9 @@ import Lector.Lector;
  * @author carlo
  */
 public class Lexico {
+
     private Lector l = new Lector();
-    
+
     public Lexico(Lector l) {
         this.l = l;
     }
@@ -22,30 +23,37 @@ public class Lexico {
         String s = "";
         char c;
         c = l.read();
-        
-        if(((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || c == '_'){
+
+        if (((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || c == '_') {
             s += "" + c;
             c = l.read();
-            while(((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || ((c >= '1') && (c <= '9')) || c == '_'){
+            while (((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || ((c >= '1') && (c <= '9')) || c == '_') {
                 s += "" + c;
                 c = l.read();
             }
             l.regresarPuntero();
             return s;
-        } else if((c >= '0') && (c <= '9')){
+        } else if ((c >= '0') && (c <= '9')) {
             s += "" + c;
             c = l.read();
-            while(((c >= '0') && (c <= '9')) || c == '.'){
-                if(c == '.'){
+            while (((c >= '0') && (c <= '9')) || c == '.') {
+                if (c == '.') {
+                    char c2 = l.read();
+                    l.regresarPuntero();
+                    if (!((c2 >= '0') && (c2 <= '9'))) {
+                        l.regresarPuntero();
+                        return s;
+                    }
+                    
                     s += "" + c;
                     c = l.read();
-                    while(((c >= '0') && (c <= '9'))){
+                    while (((c >= '0') && (c <= '9'))) {
                         s += "" + c;
                         c = l.read();
-                    }              
+                    }
                     l.regresarPuntero();
                     return s;
-                }else{
+                } else {
                     s += "" + c;
                     c = l.read();
                 }
@@ -55,7 +63,7 @@ public class Lexico {
         } else {
             s += "" + c;
         }
-        
+
         return s;
     }
 }

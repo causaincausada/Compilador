@@ -20,7 +20,6 @@ public class Test {
         Lector l = new Lector();
         l.open();
         Lexico lex = new Lexico(l);
-        /*System.out.println(lex.token());
         System.out.println(lex.token());
         System.out.println(lex.token());
         System.out.println(lex.token());
@@ -79,9 +78,10 @@ public class Test {
         System.out.println(lex.token());
         System.out.println(lex.token());
         System.out.println(lex.token());
-        System.out.println(lex.token());*/
+        System.out.println(lex.token());
+        System.out.println(lex.token());
         
-        char c = l.read();
+        /*char c = l.read();
         System.out.println(c + " $ " + (int) c );
         c = l.read();
         System.out.println(c + " $ " + (int) c );
@@ -90,6 +90,6 @@ public class Test {
         c = l.read();
         System.out.println(c + " $ " + (int) c );
         c = l.read();
-        System.out.println(c + " $ " + (int) c );
+        System.out.println(c + " $ " + (int) c );*/
     }
 }
