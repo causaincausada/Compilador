@@ -22,11 +22,13 @@ public class Lector {
     private JFileChooser file;
     private File documento;
     private RandomAccessFile archivos;
+    private boolean fin;
 
     public Lector() {
         this.file = null;
         this.documento = null;
         this.archivos = null;
+        this.fin = false;
     }
 
     public void open() {
@@ -51,6 +53,7 @@ public class Lector {
         char c = 0;
         try {
             c = (char) archivos.read();
+            checkFinal();
         } catch (IOException ex) {
             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,11 +61,16 @@ public class Lector {
         //Para cambiar los saltos de linea en espacios
         if(c == (char)13){
             read();
-            return ' ';
+            checkFinal();
+            return (char)0;
         }
         
         if(c == (char)10){
-            return ' ';
+            return (char)0;
+        }
+        
+        if(c == (char)9){
+            return (char)0;
         }
         
         return c;
@@ -71,6 +79,20 @@ public class Lector {
     public void regresarPuntero() {
         try {
             archivos.seek(archivos.getFilePointer() - 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean finalArchivo(){
+        return fin;
+    }
+    
+    private void checkFinal(){
+        try {
+            if(archivos.getFilePointer() >= (archivos.length()-1)){
+                this.fin = true;
+            }
         } catch (IOException ex) {
             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
         }

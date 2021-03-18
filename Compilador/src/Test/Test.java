@@ -7,6 +7,7 @@ package Test;
 
 import Lector.Lector;
 import Lexico.Lexico;
+import OtrasClases.Token;
 
 /**
  *
@@ -21,8 +22,9 @@ public class Test {
         l.open();
         Lexico lex = new Lexico(l);
         
-        for(int i=0; i<80; i++){
-            System.out.println(lex.token());
+        while(!l.finalArchivo()){
+           Token t = lex.token(); 
+           System.out.println( t.getCadena() + "                    " + t.getTipoString());
         }
         
         l.cerrar();
