@@ -76,7 +76,7 @@ public class Lexico {
                     l.regresarPuntero();
                     if (!((c2 >= '0') && (c2 <= '9'))) {
                         l.regresarPuntero();
-                        return new Token(s, Token.NUMERO);
+                        return new Token(s, Token.ENTERO);
                     }
 
                     s += "" + c;
@@ -86,14 +86,14 @@ public class Lexico {
                         c = l.read();
                     }
                     l.regresarPuntero();
-                    return new Token(s, Token.NUMERO);
+                    return new Token(s, Token.DECIMAL);
                 } else {
                     s += "" + c;
                     c = l.read();
                 }
             }
             l.regresarPuntero();
-            return new Token(s, Token.NUMERO);
+            return new Token(s, Token.ENTERO);
         } else if (c == ' ' || c == (char) 0) {
             return token();
         } else if (c == (char) 65535) {
@@ -106,6 +106,9 @@ public class Lexico {
                 c = l.read();
             }
             s += "" + (char) 34;
+            if(s.length() == 3){
+                return new Token(s, Token.CARACTER);
+            }
             return new Token(s, Token.CADENA);
         } else if (c == '=') {
             c = l.read();

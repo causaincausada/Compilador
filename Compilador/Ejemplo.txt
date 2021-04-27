@@ -40,6 +40,8 @@
 int main () 
 {
 	"Hola, mundo";
+	"H";
+	"";
 }
 
 constante
