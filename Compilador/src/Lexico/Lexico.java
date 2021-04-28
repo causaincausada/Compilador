@@ -43,6 +43,9 @@ public class Lexico {
         simbolos.add(";");
         simbolos.add("funcion");
         simbolos.add(",");
+        simbolos.add(".");
+        simbolos.add("leer");
+        simbolos.add("escribir");
     }
 
     public Token token() {

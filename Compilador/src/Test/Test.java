@@ -5,9 +5,7 @@
  */
 package Test;
 
-import Lector.Lector;
-import Lexico.Lexico;
-import OtrasClases.Token;
+import OtrasClases.Compilador;
 
 /**
  *
@@ -18,15 +16,6 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Lector l = new Lector();
-        l.open();
-        Lexico lex = new Lexico(l);
-        
-        while(!l.finalArchivo()){
-           Token t = lex.token(); 
-           System.out.println( t.getCadena() + "                    " + t.getTipoString());
-        }
-        
-        l.cerrar();
+        Compilador.compilar();
     }
 }
