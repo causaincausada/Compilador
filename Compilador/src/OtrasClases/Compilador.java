@@ -24,11 +24,19 @@ public class Compilador {
         if(tokens.calcularLista(lex, l)){
             //No hay errores en analisis lexico
             Reglas sintactico = new Reglas(tokens);
-        }else{
-            System.out.println("Compilacion detenida.");
+            if(sintactico.programa()){
+                
+            } else {
+                error();
+            }
+        } else {
+            error();
         }
         
         l.cerrar();
     }
     
+    private static void error(){
+        System.out.println("Compilacion detenida.");
+    }
 }

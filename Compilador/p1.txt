@@ -1,0 +1,201 @@
+inicio
+	entero a;
+	cadena b;
+	decimal c;
+	caracter d;
+	entero e = 5;
+	cadena f = "Hola";
+	decimal g = 5.5;
+	caracter h = "H";
+	a = 1;
+	b = 2;
+	c = 3;
+	d = 4;
+	e = 5;
+	f = 6;
+	g = 7;
+	h = 8;
+	llamar estaesunafuncion;
+	llamar estaesunafuncion2;
+	leer a;
+	leer b;
+	escribir a;
+	escribir b;
+	si(a == b) entonces inicio
+	
+	fin
+	si(a >= b) entonces inicio
+		entero a;
+		cadena b;
+		decimal c;
+		caracter d;
+		entero e = 5;
+		cadena f = "Hola";
+		decimal g = 5.5;
+		caracter h = "H";
+		a = 1;
+		b = 2;
+		c = 3;
+		d = 4;
+		e = 5;
+		f = 6;
+		g = 7;
+		h = 8;
+		llamar estaesunafuncion;
+		llamar estaesunafuncion2;
+		leer a;
+		leer b;
+		escribir a;
+		escribir b;
+	fin 
+	si(c != b) entonces inicio
+		si(a < b) entonces inicio
+			si(e <= b) entonces inicio
+				si(f>b) entonces inicio
+					entero a;
+				fin sino inicio
+					cadena b;
+				fin
+			fin sino inicio
+				decimal c;
+			fin
+		fin sino inicio
+			caracter d;
+		fin
+	fin sino inicio
+		si(g && b) entonces inicio
+			si(h || b) entonces inicio
+				entero e = 5;
+			fin sino inicio
+				cadena f = "Hola";
+			fin
+		fin sino inicio 
+			decimal g = 5.5;
+			caracter h = "H";
+			a = 1;
+			b = 2;
+			c = 3;
+			d = 4;
+			e = 5;
+			f = 6;
+			g = 7;
+			h = 8;
+			llamar estaesunafuncion;
+			llamar estaesunafuncion2;
+			leer a;
+			leer b;
+			escribir a;
+			escribir b;
+		fin
+	fin
+
+	mientras(a<b) hacer inicio
+	
+	fin
+
+	mientras(a<b) hacer inicio
+		escribir a;
+	fin
+
+	mientras(a<b) hacer inicio
+		si(c != b) entonces inicio
+			si(a < b) entonces inicio
+				si(e <= b) entonces inicio
+					si(f>b) entonces inicio
+						entero a;
+					fin sino inicio
+						cadena b;
+					fin
+				fin sino inicio
+					decimal c;
+				fin
+			fin sino inicio
+				caracter d;
+			fin
+		fin sino inicio
+			si(g && b) entonces inicio
+				si(h || b) entonces inicio
+					entero e = 5;
+				fin sino inicio
+					cadena f = "Hola";
+				fin
+			fin sino inicio 
+				decimal g = 5.5;
+				caracter h = "H";
+				a = 1;
+				b = 2;
+				c = 3;
+				d = 4;
+				e = 5;
+				f = 6;
+				g = 7;
+				h = 8;
+				llamar estaesunafuncion;
+				llamar estaesunafuncion2;
+				leer a;
+				leer b;
+				escribir a;
+				escribir b;
+			fin
+		fin
+	fin
+
+	mientras(a<b) hacer inicio
+		mientras(a<b) hacer inicio
+			mientras(a<b) hacer inicio
+				mientras(a<b) hacer inicio
+					si(a!=b) entonces inicio
+						mientras(a<b) hacer inicio
+							leer a;
+						fin
+					fin
+				fin
+			fin
+		fin
+	fin
+
+	constante entero i = 10;
+	constante cadena j = "Hola";
+	constante decimal k = 10.66;
+	constante caracter d = "o";
+fin
+
+funcion estaesunafuncion inicio
+	mientras(a<b) hacer inicio
+		mientras(a<b) hacer inicio
+			mientras(a<b) hacer inicio
+				mientras(a<b) hacer inicio
+					si(a!=b) entonces inicio
+						mientras(a<b) hacer inicio
+							leer a;
+						fin
+					fin
+				fin
+			fin
+		fin
+	fin
+
+	constante entero i = 10;
+	constante cadena j = "Hola";
+	constante decimal k = 10.66;
+	constante caracter d = "o";
+
+	i = j +1;
+	i = j + j - i * 20;
+	k = 10 / 3.5;
+	k = 10;
+	
+	si(a<=b == a>=b || a==b) entonces inicio
+		i = i + 1;
+	fin 
+	
+	si((!a==b) || a) entonces inicio
+		i = (!a==b);
+	fin
+	
+fin
+
+funcion estaesunafuncion2 inicio
+
+fin
+.

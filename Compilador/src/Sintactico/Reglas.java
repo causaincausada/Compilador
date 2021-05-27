@@ -25,7 +25,6 @@ public class Reglas {
         if(!aux0()) return false;
         Token t = tokens.getToken();
         if(t.getCadena().equals(".")){
-            System.out.println("Programa compilo exitosamente");
             return true;
         }else{
             error(1);
@@ -130,7 +129,13 @@ public class Reglas {
                 return true;
             case "=":
                 if(!dato()) return false;
-                return true;
+                t = tokens.getToken();
+                if(t.getCadena().equals(";")){
+                    return true;
+                } else {
+                    error(7);
+                    return false;
+                }
             default:
                 error(8);
                 return false;
@@ -405,43 +410,84 @@ public class Reglas {
     
     //<aux0>::= ε
     //<aux0>::= <FUNCION> <aux0>
+    //Follows(aux0) = {'.'}
     private boolean aux0(){
-        if(!funcion()) return false;
-        if(!aux0()) return false;
-        return true;
+        Token t = tokens.getToken();
+        if(!t.getCadena().equals(".")){
+            tokens.regresarPuntero();
+            if(!funcion()) return false;
+            if(!aux0()) return false;
+            return true;
+        } else {
+            tokens.regresarPuntero();
+            return true;
+        }
     }
     
     //<aux2>::= ε
     //<aux2>::= <ACCIONES> <aux2>
+    //Follows(aux2) = {“fin”}
     private boolean aux2(){
-        if(!acciones()) return false;
-        if(!aux2()) return false;
-        return true;
+        Token t = tokens.getToken();
+        if(!t.getCadena().equals("fin")){
+            tokens.regresarPuntero();
+            if(!acciones()) return false;
+            if(!aux2()) return false;
+            return true;
+        } else {
+            tokens.regresarPuntero();
+            return true;
+        }
     }
     
     //<aux3>::= ε
     //<aux3>::= sino <BLOQUE>
+    //Follows(aux3) = {“<identificador>” + “llamar” + “leer” + “escribir” + “si”
+    //                  + “mientras” + “entero” + “decimal” + “caracter” + “cadena” 
+    //                  + “constante” + “fin”}
     private boolean aux3(){
         Token t = tokens.getToken();
-        if(t.getCadena().equals("sino")){
-            if(!bloque()) return false;
-            return true;
+        String st = t.getCadena();
+        if(!((st.equals("llamar"))||(st.equals("leer"))||(st.equals("escribir"))||
+                (st.equals("si"))||(st.equals("mientras"))||(st.equals("entero"))||
+                (st.equals("decimal"))||(st.equals("caracter"))||(st.equals("cadena"))||
+                (st.equals("constante"))||(st.equals("fin"))||(t.getTipo()==Token.IDENTIFICADOR))){
+            if(t.getCadena().equals("sino")){
+                if(!bloque()) return false;
+                return true;
+            } else {
+                error(23);
+                return false;
+            }
         } else {
-            error(23);
-            return false;
+            tokens.regresarPuntero();
+            return true;
         }
     }
     
     //<aux4>::= <identificador>
     //<aux4>::= <DATO>
-    //<aux4>::= !<CONDICION>
+    //<aux4>::= (!<CONDICION>)
     private boolean aux4(){
         Token t = tokens.getToken();
         if(t.getTipo() == Token.IDENTIFICADOR){
             return true;
-        } else if(t.getCadena().equals("!")) {
-            if(!condicion()) return false;
-            return true;
+        } else if(t.getCadena().equals("(")) {
+            t = tokens.getToken();
+            if(t.getCadena().equals("!")){
+                if(!condicion()) return false;
+                t = tokens.getToken();
+                if(t.getCadena().equals(")")){
+                    return true;
+                }else{
+                    error(17);
+                    return false;
+                }
+            } else {
+                error(25);
+                return false;
+            }
+            
         } else if((t.getTipo() == Token.ENTERO)||(t.getTipo() == Token.DECIMAL)||(t.getTipo() == Token.CARACTER)||(t.getTipo() == Token.CADENA)){
             tokens.regresarPuntero();
             if(!dato()) return false;
@@ -454,22 +500,38 @@ public class Reglas {
     
     //<aux5>::= <O_RELACIONAL><aux4> <O_RELACIONAL> <aux4> <aux5>
     //<aux5>::= ε 
+    //Follows(aux5) = {“)”}
     private boolean aux5(){
-        if(!o_relacional())return false;
-        if(!aux4())return false;
-        if(!o_relacional())return false;
-        if(!aux4())return false;
-        if(!aux5())return false;
-        return true;
+        Token t = tokens.getToken();
+        if(!t.getCadena().equals(")")){
+            tokens.regresarPuntero();
+            if(!o_relacional())return false;
+            if(!aux4())return false;
+            if(!o_relacional())return false;
+            if(!aux4())return false;
+            if(!aux5())return false;
+            return true;
+        } else {
+            tokens.regresarPuntero();
+            return true;
+        }
     }
     
     //<aux6>::= <O_ARITMETICO><aux4><aux6>
     //<aux6>::= ε
+    //Follows(aux6) = {“;”}
     private boolean aux6(){
-        if(!o_aritmetico()) return false;
-        if(!aux4()) return false;
-        if(!aux6()) return false;
-        return true;
+        Token t = tokens.getToken();
+        if(!t.getCadena().equals(";")){
+            tokens.regresarPuntero();
+            if(!o_aritmetico()) return false;
+            if(!aux4()) return false;
+            if(!aux6()) return false;
+            return true;
+        } else {
+            tokens.regresarPuntero();
+            return true;
+        }
     }
     
     //<ACCIONES>::= <ASIGNACION DE VALORES>
@@ -539,6 +601,7 @@ public class Reglas {
                     return true;
                     
                 default:
+                    error(26);
                     return false;
                     
             }
@@ -547,6 +610,9 @@ public class Reglas {
     }
     
     private void error(int e){
+//        tokens.regresarPuntero();
+//        Token t = tokens.getToken();
+//        System.out.println(t.getCadena());
         switch(e){
             case 1: 
                 System.out.println("Se esperaba un '.'");
@@ -632,7 +698,15 @@ public class Reglas {
                 break;
             
             case 24:
-                System.out.println("Se esperaba un dato de tipo entero o dato de tipo decimal o dato de tipo caracter o dato de tipo cadena o un identificador o un '!'");
+                System.out.println("Se esperaba un dato de tipo entero o dato de tipo decimal o dato de tipo caracter o dato de tipo cadena o un identificador o un '('");
+                break;
+                
+            case 25:
+                System.out.println("Se esperaba un '!'");
+                break;
+                
+            case 26:
+                System.out.println("Se esperaba un 'llamar' o 'leer' o 'escribir' o 'si' o 'mientras' o 'entero' o 'decimal' o 'caracter' o 'cadena' o 'constante' o un identificador");
                 break;
                 
             default:
