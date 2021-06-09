@@ -7,6 +7,7 @@ package Sintactico;
 
 import OtrasClases.ListaTokens;
 import OtrasClases.Token;
+import semantico.Identificadores;
 
 /**
  *
@@ -14,9 +15,11 @@ import OtrasClases.Token;
  */
 public class Reglas {
     ListaTokens tokens;
+    Identificadores identificadores;
     
     public Reglas(ListaTokens tokens) {
         this.tokens = tokens;
+        identificadores = new Identificadores();
     }
     
     //<PROGRAMA>::= <BLOQUE> <aux0> .
@@ -25,6 +28,7 @@ public class Reglas {
         if(!aux0()) return false;
         Token t = tokens.getToken();
         if(t.getCadena().equals(".")){
+            if(!identificadores.comprobarLlamadas()) return false;
             return true;
         }else{
             error(1);
@@ -81,7 +85,7 @@ public class Reglas {
             if(!tipos()) return false;
             t = tokens.getToken();
             if(t.getTipo() == Token.IDENTIFICADOR){
-                ///Agregar a la lista de indetificadores y ver si no esta ocupado***********************
+                if(!identificadores.addIdentificador(t.getCadena())) return false;
                 t = tokens.getToken();
                 if(t.getCadena().equals("=")){
                     if(!dato()) return false;
@@ -111,7 +115,7 @@ public class Reglas {
         if (!tipos()) return false;
         Token t = tokens.getToken();
         if (t.getTipo() == Token.IDENTIFICADOR) {
-            ///Agregar a la lista de indetificadores y ver si no esta ocupado***********************
+            if(!identificadores.addIdentificador(t.getCadena())) return false;
             if (!aux1()) return false;
             return true;
         } else {
@@ -148,7 +152,7 @@ public class Reglas {
         if(t.getCadena().equals("funcion")){
             t = tokens.getToken();
             if(t.getTipo() == Token.IDENTIFICADOR){
-                ///Agregar a la lista de indetificadores y ver si no esta ocupado***********************
+                if(!identificadores.addIdentificadorFuncion(t.getCadena())) return false;
                 if(!bloque()) return false;
                 return true;
             }else{
@@ -165,6 +169,7 @@ public class Reglas {
     private boolean asignacionDeValores() {
         Token t = tokens.getToken();
         if (t.getTipo() == Token.IDENTIFICADOR) {
+            if(!identificadores.existeIdentificador(t.getCadena())) return false;
             t = tokens.getToken();
             if(t.getCadena().equals("=")){
                     if(!expAritmetica()) return false;
@@ -191,6 +196,7 @@ public class Reglas {
         if (t.getCadena().equals("llamar")) {
             t = tokens.getToken();
             if (t.getTipo() == Token.IDENTIFICADOR) {
+                identificadores.existeIdentificadorFuncion(t.getCadena());
                 t = tokens.getToken();
                 if (t.getCadena().equals(";")) {
                     return true;
@@ -215,6 +221,7 @@ public class Reglas {
         if (t.getCadena().equals("leer")) {
             t = tokens.getToken();
             if (t.getTipo() == Token.IDENTIFICADOR) {
+                if(!identificadores.existeIdentificador(t.getCadena())) return false;
                 t = tokens.getToken();
                 if (t.getCadena().equals(";")) {
                     return true;
@@ -239,6 +246,7 @@ public class Reglas {
         if (t.getCadena().equals("escribir")) {
             t = tokens.getToken();
             if (t.getTipo() == Token.IDENTIFICADOR) {
+                if(!identificadores.existeIdentificador(t.getCadena())) return false;
                 t = tokens.getToken();
                 if (t.getCadena().equals(";")) {
                     return true;
@@ -471,6 +479,7 @@ public class Reglas {
     private boolean aux4(){
         Token t = tokens.getToken();
         if(t.getTipo() == Token.IDENTIFICADOR){
+            if(!identificadores.existeIdentificador(t.getCadena())) return false;
             return true;
         } else if(t.getCadena().equals("(")) {
             t = tokens.getToken();
