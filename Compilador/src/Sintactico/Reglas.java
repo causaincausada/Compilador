@@ -769,7 +769,7 @@ public class Reglas {
                 break;
                 
             default:
-                System.out.println("No coinciden los tipos de datos, se esperaba un dato de tipo:");
+                System.out.println("Error no considerado");
         }
     }
 }
