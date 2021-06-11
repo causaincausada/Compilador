@@ -18,6 +18,7 @@ public class Token {
     public static final int CARACTER = 5;
     public static final int ERROR = 6;
     public static final int FIN = 7;
+    public static final int FUNCION = 8;
     
     private String cadena;
     private int Tipo;
@@ -39,6 +40,42 @@ public class Token {
         String mensaje = "";
         
         switch (this.Tipo){
+            case 0:
+                mensaje = "Identifacador";
+                break;
+            case 1:
+                mensaje = "Simbolo";
+                break;
+            case 2:
+                mensaje = "Entero";
+                break;
+            case 3:
+                mensaje = "Decimal";
+                break;
+            case 4:
+                mensaje = "Cadena";
+                break;
+            case 5:
+                mensaje = "Caracter";
+                break;
+            case 6:
+                mensaje = "Error";
+                break;
+            case 7:
+                mensaje = "Fin de achivo";
+                break;
+            default:
+                mensaje = "Tipo no definido";
+                break;
+        }
+        
+        return mensaje;
+    }
+    
+    public static String getTipoString(int tip) {
+        String mensaje = "";
+        
+        switch (tip){
             case 0:
                 mensaje = "Identifacador";
                 break;

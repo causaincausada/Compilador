@@ -8,31 +8,31 @@ inicio
 	decimal g = 5.5;
 	caracter h = "H";
 	a = 1;
-	b = 2;
-	c = 3;
-	d = 4;
+	b = "hola";
+	c = 3.0;
+	d = "a";
 	e = 5;
-	f = 6;
-	g = 7;
-	h = 8;
+	f = "Hola";
+	g = 7.0;
+	h = "8";
 	llamar estaesunafuncion;
 	llamar estaesunafuncion2;
 	leer a;
 	leer b;
 	escribir a;
 	escribir b;
-	si(a == b) entonces inicio
+	si(a == e) entonces inicio
 	
 	fin
-	si(a >= b) entonces inicio
+	si(g >= c) entonces inicio
 		a = 1;
-		b = 2;
-		c = 3;
-		d = 4;
+		b = "222";
+		c = 3.0;
+		d = "4";
 		e = 5;
-		f = 6;
-		g = 7;
-		h = 8;
+		f = "66";
+		g = 7.0;
+		h = "8";
 		llamar estaesunafuncion;
 		llamar estaesunafuncion2;
 		leer a;
@@ -40,10 +40,10 @@ inicio
 		escribir a;
 		escribir b;
 	fin 
-	si(c != b) entonces inicio
-		si(a < b) entonces inicio
-			si(e <= b) entonces inicio
-				si(f>b) entonces inicio
+	si(f != b) entonces inicio
+		si(d < h) entonces inicio
+			si(e <= a) entonces inicio
+				si(g>c) entonces inicio
 					
 				fin sino inicio
 					
@@ -55,21 +55,21 @@ inicio
 			
 		fin
 	fin sino inicio
-		si(g && b) entonces inicio
-			si(h || b) entonces inicio
+		si(e && a) entonces inicio
+			si(g || c) entonces inicio
 				
 			fin sino inicio
 				
 			fin
 		fin sino inicio 
 			a = 1;
-			b = 2;
-			c = 3;
-			d = 4;
+			b = "22";
+			c = 3.0;
+			d = "4";
 			e = 5;
-			f = 6;
-			g = 7;
-			h = 8;
+			f = "a6";
+			g = 7.0;
+			h = "8";
 			llamar estaesunafuncion;
 			llamar estaesunafuncion2;
 			leer a;
@@ -79,19 +79,19 @@ inicio
 		fin
 	fin
 
-	mientras(a<b) hacer inicio
+	mientras(a<e) hacer inicio
 	
 	fin
 
-	mientras(a<b) hacer inicio
+	mientras(g<c) hacer inicio
 		escribir a;
 	fin
 
-	mientras(a<b) hacer inicio
-		si(c != b) entonces inicio
-			si(a < b) entonces inicio
-				si(e <= b) entonces inicio
-					si(f>b) entonces inicio
+	mientras(a<e) hacer inicio
+		si(g != c) entonces inicio
+			si(a < e) entonces inicio
+				si(g <= c) entonces inicio
+					si(a>e) entonces inicio
 						
 					fin sino inicio
 						
@@ -103,21 +103,21 @@ inicio
 				
 			fin
 		fin sino inicio
-			si(g && b) entonces inicio
-				si(h || b) entonces inicio
+			si(a && e) entonces inicio
+				si(a || e) entonces inicio
 
 				fin sino inicio
 					
 				fin
 			fin sino inicio 
 				a = 1;
-				b = 2;
-				c = 3;
-				d = 4;
+				b = "22";
+				c = 3.0;
+				d = "4";
 				e = 5;
-				f = 6;
-				g = 7;
-				h = 8;
+				f = "a6";
+				g = 7.0;
+				h = "8";
 				llamar estaesunafuncion;
 				llamar estaesunafuncion2;
 				leer a;
@@ -128,12 +128,12 @@ inicio
 		fin
 	fin
 
-	mientras(a<b) hacer inicio
-		mientras(a<b) hacer inicio
-			mientras(a<b) hacer inicio
-				mientras(a<b) hacer inicio
-					si(a!=b) entonces inicio
-						mientras(a<b) hacer inicio
+	mientras(a<e) hacer inicio
+		mientras(a<e) hacer inicio
+			mientras(a<e) hacer inicio
+				mientras(a<e) hacer inicio
+					si(a!=e) entonces inicio
+						mientras(a<e) hacer inicio
 							leer a;
 						fin
 					fin
@@ -146,12 +146,12 @@ inicio
 fin
 
 funcion estaesunafuncion inicio
-	mientras(a<b) hacer inicio
-		mientras(a<b) hacer inicio
-			mientras(a<b) hacer inicio
-				mientras(a<b) hacer inicio
-					si(a!=b) entonces inicio
-						mientras(a<b) hacer inicio
+	mientras(a<e) hacer inicio
+		mientras(a<e) hacer inicio
+			mientras(a<e) hacer inicio
+				mientras(a<e) hacer inicio
+					si(a!=e) entonces inicio
+						mientras(a<e) hacer inicio
 							leer a;
 						fin
 					fin
@@ -160,21 +160,41 @@ funcion estaesunafuncion inicio
 		fin
 	fin
 
-	constante entero i = 10;
-	constante cadena j = "Hola";
-	constante decimal k = 10.66;
+	constante entero ii = 10;
+	constante cadena jj = "Hh";
+	constante decimal kk = 1.0;
 
-	i = j +1;
-	i = j + j - i * 20;
-	k = 10 / 3.5;
-	k = 10;
+	entero i = 10;
+	cadena j = "Hh";
+	decimal k = 1.0;
+	caracter l = "a";
+
+	i = i + 1;
+	i = i + 5 - i * 20;
+	k = 10.0 / 3.5;
+	k = 10.0;
 	
-	si(a<=b == a>=b || a==b) entonces inicio
+	i = 10;
+	i = 1;
+	i = i + 1 + i + 2 + i;
+	
+	j = j + "aaa" + j + f;
+
+	l = "A";
+	l = l + l + "a" + "1";
+
+	si((!a==i) && (!a==i)) entonces inicio
+	fin
+
+	si((!(!a==i) || i) && (!a==i)) entonces inicio
+	fin	
+	
+	si(a<=i == a>=i || a==i) entonces inicio
 		i = i + 1;
 	fin 
 	
-	si((!a==b) || a) entonces inicio
-		i = (!a==b);
+	si((!a==i) || i) entonces inicio
+		i = (!a==i);
 	fin
 	
 fin

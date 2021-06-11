@@ -25,7 +25,7 @@ public class Compilador {
             //No hay errores en analisis lexico
             Reglas sintactico = new Reglas(tokens);
             if(sintactico.programa()){
-                
+                System.out.println("Compilcion correcta");
             } else {
                 error();
             }

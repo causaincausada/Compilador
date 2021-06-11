@@ -5,7 +5,9 @@
  */
 package semantico;
 
+import OtrasClases.Token;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,19 +16,21 @@ import java.util.Set;
  * @author carlo
  */
 public class Identificadores {
-    private Set<String> identificadores;
+    private HashMap<String, Integer> identificadores;
     private Set<String> identificadoresFunciones;
     private ArrayList<String> llamadasFuncion;
+    private int tipo;
     
     public Identificadores() {
-         identificadores = new HashSet<>();
+         identificadores = new HashMap<>();
          identificadoresFunciones = new HashSet<>();
          llamadasFuncion = new ArrayList<>();
     }
     
-    public boolean addIdentificador(String i){
-        if(!identificadores.contains(i)){
-            identificadores.add(i);
+    public boolean addIdentificador(String i, int tipo){
+        
+        if(!identificadores.containsKey(i)){
+            identificadores.put(i, tipo);
             return true;
         } else {
             error(1, i);
@@ -35,9 +39,9 @@ public class Identificadores {
     }
     
     public boolean addIdentificadorFuncion(String i){
-        if(!identificadores.contains(i)){
+        if(!identificadores.containsKey(i)){
             identificadoresFunciones.add(i);
-            identificadores.add(i);
+            identificadores.put(i, Token.FUNCION);
             return true;
         } else {
             error(1, i);
@@ -63,14 +67,18 @@ public class Identificadores {
     }
     
     public boolean existeIdentificador(String i){
-        if(identificadores.contains(i)){
+        if(identificadores.containsKey(i)){
             return true;
         } else {
             error(2, i);
             return false;
         }
     }
-
+    
+    public int getTipo(String i){
+        return identificadores.get(i);
+    }
+    
     private void error(int e, String i) {
         switch (e) {
             case 1:
@@ -81,7 +89,7 @@ public class Identificadores {
                 break;
                 
             case 3:
-                System.out.println("No fue declarado el identificador de funcion: " + i);
+                System.out.println("No existe el identificador de una funcion: " + i);
                 break;
             default:
                 System.out.println("Error no considerado");

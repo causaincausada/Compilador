@@ -14,12 +14,14 @@ import semantico.Identificadores;
  * @author carlo
  */
 public class Reglas {
-    ListaTokens tokens;
-    Identificadores identificadores;
+    private ListaTokens tokens;
+    private Identificadores identificadores;
+    private int tipo;
     
     public Reglas(ListaTokens tokens) {
         this.tokens = tokens;
         identificadores = new Identificadores();
+        tipo = -1;
     }
     
     //<PROGRAMA>::= <BLOQUE> <aux0> .
@@ -44,12 +46,16 @@ public class Reglas {
         Token t = tokens.getToken();
         switch(t.getCadena()){
             case "entero":
+                tipo = Token.ENTERO;
                 return true;
             case "decimal":
+                tipo = Token.DECIMAL;
                 return true;
             case "caracter":
+                tipo = Token.CARACTER;
                 return true;
             case "cadena":
+                tipo = Token.CADENA;
                 return true;
             default:
                 error(2);
@@ -61,17 +67,25 @@ public class Reglas {
     //<DATO>::= <decimal_dato>
     //<DATO>::= <caracter _dato>
     //<DATO>::= <cadena_dato>
-    private boolean dato(){
+    private boolean dato(int tip){
         Token t = tokens.getToken();
-        switch(t.getTipo()){
+        switch(tip){
             case Token.ENTERO:
-                return true;
+                if(tip == t.getTipo())return true;
+                error(27);
+                return false;
             case Token.DECIMAL:
-                return true;
+                if(tip == t.getTipo())return true;
+                error(28);
+                return false;
             case Token.CARACTER:
-                return true;
+                if(tip == t.getTipo())return true;
+                error(29);
+                return false;
             case Token.CADENA:
-                return true;
+                if(tip == t.getTipo())return true;
+                error(30);
+                return false;
             default:
                 error(3);
                 return false;
@@ -85,10 +99,10 @@ public class Reglas {
             if(!tipos()) return false;
             t = tokens.getToken();
             if(t.getTipo() == Token.IDENTIFICADOR){
-                if(!identificadores.addIdentificador(t.getCadena())) return false;
+                if(!identificadores.addIdentificador(t.getCadena(), tipo)) return false;
                 t = tokens.getToken();
                 if(t.getCadena().equals("=")){
-                    if(!dato()) return false;
+                    if(!dato(tipo)) return false;
                     t = tokens.getToken();
                     if(t.getCadena().equals(";")){
                         return true;
@@ -115,7 +129,7 @@ public class Reglas {
         if (!tipos()) return false;
         Token t = tokens.getToken();
         if (t.getTipo() == Token.IDENTIFICADOR) {
-            if(!identificadores.addIdentificador(t.getCadena())) return false;
+            if(!identificadores.addIdentificador(t.getCadena() , tipo)) return false;
             if (!aux1()) return false;
             return true;
         } else {
@@ -132,7 +146,7 @@ public class Reglas {
             case ";":
                 return true;
             case "=":
-                if(!dato()) return false;
+                if(!dato(tipo)) return false;
                 t = tokens.getToken();
                 if(t.getCadena().equals(";")){
                     return true;
@@ -170,9 +184,10 @@ public class Reglas {
         Token t = tokens.getToken();
         if (t.getTipo() == Token.IDENTIFICADOR) {
             if(!identificadores.existeIdentificador(t.getCadena())) return false;
+            tipo = identificadores.getTipo(t.getCadena());
             t = tokens.getToken();
             if(t.getCadena().equals("=")){
-                    if(!expAritmetica()) return false;
+                    if(!expAritmetica(tipo)) return false;
                     t = tokens.getToken();
                     if(t.getCadena().equals(";")){
                         return true;
@@ -289,7 +304,8 @@ public class Reglas {
         if(t.getCadena().equals("si")){
             t = tokens.getToken();
             if(t.getCadena().equals("(")){
-                if(!condicion()) return false;
+                tipo = -1;
+                if(!condicion(-1)) return false;
                 t = tokens.getToken();
                 if(t.getCadena().equals(")")){
                     t = tokens.getToken();
@@ -321,7 +337,8 @@ public class Reglas {
         if(t.getCadena().equals("mientras")){
             t = tokens.getToken();
             if(t.getCadena().equals("(")){
-                if(!condicion()) return false;
+                tipo = -1;
+                if(!condicion(-1)) return false;
                 t = tokens.getToken();
                 if(t.getCadena().equals(")")){
                     t = tokens.getToken();
@@ -380,11 +397,11 @@ public class Reglas {
     }
     
     //<CONDICION>::= <aux4> <O_RELACIONAL><aux4><aux5>
-    private boolean condicion(){
-        if(!aux4()) return false;
+    private boolean condicion(int tip){
+        if(!aux4(tip)) return false;
         if(!o_relacional()) return false;
-        if(!aux4()) return false;
-        if(!aux5()) return false;
+        if(!aux4(tipo)) return false;
+        if(!aux5(tipo)) return false;
         return true;
     }
     
@@ -410,9 +427,9 @@ public class Reglas {
     }
     
     //<EXP ARITMETICA>::= <aux4><aux6> 
-    private boolean expAritmetica(){
-        if(!aux4()) return false;
-        if(!aux6()) return false;
+    private boolean expAritmetica(int tip){
+        if(!aux4(tip)) return false;
+        if(!aux6(tip)) return false;
         return true;
     }
     
@@ -476,15 +493,26 @@ public class Reglas {
     //<aux4>::= <identificador>
     //<aux4>::= <DATO>
     //<aux4>::= (!<CONDICION>)
-    private boolean aux4(){
+    private boolean aux4(int tip){
         Token t = tokens.getToken();
         if(t.getTipo() == Token.IDENTIFICADOR){
             if(!identificadores.existeIdentificador(t.getCadena())) return false;
+            if(tip == -1){
+                tipo = identificadores.getTipo(t.getCadena());
+            } else if(identificadores.getTipo(t.getCadena()) != tipo) {
+                System.out.println("No coinciden los tipos de datos, se esperaba un valor de tipo: " + Token.getTipoString(tipo) + "    ///Lugar (identificador):" + t.getCadena());
+                return false;
+            }
             return true;
         } else if(t.getCadena().equals("(")) {
             t = tokens.getToken();
             if(t.getCadena().equals("!")){
-                if(!condicion()) return false;
+                if(tipo == -1){
+                    if(!condicion(-1)) return false;
+                } else {
+                    if(!condicion(tipo)) return false;
+                }
+                
                 t = tokens.getToken();
                 if(t.getCadena().equals(")")){
                     return true;
@@ -498,8 +526,14 @@ public class Reglas {
             }
             
         } else if((t.getTipo() == Token.ENTERO)||(t.getTipo() == Token.DECIMAL)||(t.getTipo() == Token.CARACTER)||(t.getTipo() == Token.CADENA)){
+            if(tip == -1){
+                tipo = t.getTipo();
+            } else if(t.getTipo() != tipo) {
+                System.out.println("No coinciden los tipos de datos, se esperaba un valor de tipo: " + Token.getTipoString(tipo) + "    /// Lugar (dato):" + t.getCadena());
+                return false;
+            }
             tokens.regresarPuntero();
-            if(!dato()) return false;
+            if(!dato(tipo)) return false;
             return true;
         } else{
             error(24);
@@ -510,15 +544,15 @@ public class Reglas {
     //<aux5>::= <O_RELACIONAL><aux4> <O_RELACIONAL> <aux4> <aux5>
     //<aux5>::= ε 
     //Follows(aux5) = {“)”}
-    private boolean aux5(){
+    private boolean aux5(int tip){
         Token t = tokens.getToken();
         if(!t.getCadena().equals(")")){
             tokens.regresarPuntero();
             if(!o_relacional())return false;
-            if(!aux4())return false;
+            if(!aux4(tip))return false;
             if(!o_relacional())return false;
-            if(!aux4())return false;
-            if(!aux5())return false;
+            if(!aux4(tip))return false;
+            if(!aux5(tip))return false;
             return true;
         } else {
             tokens.regresarPuntero();
@@ -529,13 +563,13 @@ public class Reglas {
     //<aux6>::= <O_ARITMETICO><aux4><aux6>
     //<aux6>::= ε
     //Follows(aux6) = {“;”}
-    private boolean aux6(){
+    private boolean aux6(int tip){
         Token t = tokens.getToken();
         if(!t.getCadena().equals(";")){
             tokens.regresarPuntero();
             if(!o_aritmetico()) return false;
-            if(!aux4()) return false;
-            if(!aux6()) return false;
+            if(!aux4(tip)) return false;
+            if(!aux6(tip)) return false;
             return true;
         } else {
             tokens.regresarPuntero();
@@ -718,8 +752,24 @@ public class Reglas {
                 System.out.println("Se esperaba un 'llamar' o 'leer' o 'escribir' o 'si' o 'mientras' o 'entero' o 'decimal' o 'caracter' o 'cadena' o 'constante' o un identificador");
                 break;
                 
+            case 27:
+                System.out.println("No coinciden los tipos de datos, se esperaba un dato de tipo: entero");
+                break;
+                
+            case 28:
+                System.out.println("No coinciden los tipos de datos, se esperaba un dato de tipo: decimal");
+                break;
+                
+            case 29:
+                System.out.println("No coinciden los tipos de datos, se esperaba un dato de tipo: caracter");
+                break;
+                
+            case 30:
+                System.out.println("No coinciden los tipos de datos, se esperaba un dato de tipo: cadena");
+                break;
+                
             default:
-                System.out.println("Error no considerado");
+                System.out.println("No coinciden los tipos de datos, se esperaba un dato de tipo:");
         }
     }
 }
